@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-  
+  before_action :signed_in,    only: [:edit, :update, :destroy] #ログインしないと編集できない
+  before_action :admin_user,   only: [:edit, :update, :destroy] #自分だけが編集できる
+
   def show
-   @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
   
   def new
@@ -18,9 +20,31 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+  
+  def update
+    if @current_user.update(user_params)
+      flash[:success] = "Profile changed"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   private
   
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :profile, :region, :password, :password_confirmation)
   end
+  
+  def signed_in
+      redirect_to login_path, notice: "Please sign in." unless logged_in?
+  end
+  
+  def admin_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+  end
+  
 end
