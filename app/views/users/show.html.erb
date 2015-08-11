@@ -4,8 +4,8 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
-        <!--<%= link_to 'Following', @user.followings %>-->
-        <!--<%= link_to 'Follower', @user.followers %>-->
+        <span><%= link_to 'Following', :controller => "users", :action => "followings" %></span>
+        <span><%= link_to 'Follower', :controller => "users", :action => "followers" %></span>
       </h1>
     </section>
   </aside>
