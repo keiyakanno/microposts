@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811104138) do
+ActiveRecord::Schema.define(version: 20150812071739) do
 
   create_table "microposts", force: :cascade do |t|
     t.integer  "user_id"
