@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts
+    
   end
   
   def new
@@ -32,6 +33,16 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
+  def followings
+    @user = User.find(params[:id])
+    @following_users = @user.following_users
+  end
+  
+  def followers
+    @user = User.find(params[:id])
+    @followed_users = @user.followed_users
+  end
 
   private
   
@@ -47,5 +58,5 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
   end
-  
+
 end
